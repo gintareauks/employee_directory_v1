@@ -24,7 +24,7 @@ header h1 {
 
 .card {
     display: grid;
-    grid-template-columns: 130px 240px;
+    grid-template-columns: 120px 180px;
     border: 2px solid #e6e6e6;
     border-radius: 5px;
     padding: 10px 0;
@@ -57,7 +57,9 @@ header h1 {
 }
 
 .text-container p {
-    font-size: 0.9em;
+    width: 180px;
+    word-wrap: break-word;
+    font-size: 0.8em;
     margin: 5px 0;
     color: #b3b3b3;
 }
@@ -89,9 +91,21 @@ header h1 {
     cursor: pointer;
 }
 
-.modal-content .text-container{
+.modal-text-container{
     text-align: center;
  }
+
+ .modal-text-container h2 {
+    font-size: 1.05em;
+    margin-bottom: 8px;
+    color: #404040;
+}
+
+.modal-text-container p {
+    font-size: 0.8em;
+    margin: 5px 0;
+    color: #b3b3b3;
+}
  
  .text-container hr {
      margin-top: 20px;
@@ -157,7 +171,15 @@ header h1 {
     }
 
     .card {
-        max-width: 500px;
+        grid-template-columns: 130px 200px;
+        max-width: 380px;
+    }
+
+    .text-container p {
+        width: initial;
+        font-size: 0.9em;
+        margin: 5px 0;
+        color: #b3b3b3;
     }
 }
 
