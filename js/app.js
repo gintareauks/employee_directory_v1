@@ -72,6 +72,7 @@ function displayModal(index) {
     overlay.classList.remove("hidden");
     modalContainer.innerHTML = modalHTML;
     
+    // move through employees back and forth
     const previous = document.querySelector('.previous');
     previous.addEventListener('click', e => {
         if (index > 0) {
@@ -104,6 +105,7 @@ gridContainer.addEventListener('click', e => {
         displayModal(index);
     }
 });
+    // close modal 
     modalClose.addEventListener('click', () => {
     overlay.classList.add("hidden");
 });
