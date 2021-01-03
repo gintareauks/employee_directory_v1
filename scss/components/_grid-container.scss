@@ -85,8 +85,10 @@
     }
 
     .text-container p {
-        width: initial;
+        width: 230px;
+        word-wrap: break-word;
         font-size: 0.9em;
         margin: 5px 0;
+
     }
 }
