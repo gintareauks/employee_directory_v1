@@ -1,10 +1,11 @@
-//global variables 
+// global variables 
 let employees = [];
 const urlAPI = `https://randomuser.me/api/?results=12&inc=name, picture, email, location, phone, dob &noinfo &nat=US`
 const gridContainer = document.querySelector(".grid-container");
 const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
+const search = document.querySelector('#search');
 
 // fetch data from API
 fetch(urlAPI)
@@ -26,7 +27,7 @@ function displayEmployees(employeeData) {
         let city = employee.location.city;
         let picture = employee.picture;
 
-        // template literals make this so much cleaner !
+        // template literals to make it cleaner !
         employeeHTML += `
             <div class="card" data-index="${index}">
                 <img class="avatar" src="${picture.large}"/>
@@ -42,6 +43,7 @@ function displayEmployees(employeeData) {
 }
 
 function displayModal(index) {
+
     // use object destructuring make our template literal cleaner 
     let { 
         name, dob, phone, email, location: { city, street, state, postcode }, picture 
@@ -57,18 +59,43 @@ function displayModal(index) {
         <p class="address">${city}</p>
         <hr>
         <p>${phone}</p>
-        <p class="address">${street}, ${state} ${postcode}</p>
+        <p class="address">${street.number} ${street.name}, ${state} ${postcode}</p>
         <p>Birthday:
         ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
         </div>
+        <div class="actions">
+            <button class="previous">Previous</button>
+            <button class="next">Next</button>
+        </div> 
     `;
 
     overlay.classList.remove("hidden");
     modalContainer.innerHTML = modalHTML;
+    
+    const previous = document.querySelector('.previous');
+    previous.addEventListener('click', e => {
+        if (index > 0) {
+            index--;
+            displayModal(index);
+        } else {
+            index = employees.length - 1;
+            displayModal(index);
+        }
+    });
+    
+    const next = document.querySelector('.next');
+    next.addEventListener('click', e => {
+      if(index < employees.length -1) { 
+        index++;
+        displayModal(index);
+      } else {
+          index = 0;
+          displayModal(index);
+      }
+    });
 }
 
 gridContainer.addEventListener('click', e => {
-    // make sure the click is not on the gridContainer itself
     if (e.target !== gridContainer) {
         // select the card element based on its proximity to actual element clicked
         const card = e.target.closest(".card");
@@ -77,13 +104,27 @@ gridContainer.addEventListener('click', e => {
         displayModal(index);
     }
 });
-modalClose.addEventListener('click', () => {
+    modalClose.addEventListener('click', () => {
     overlay.classList.add("hidden");
 });
 
 
+// search filter
+search.addEventListener('keyup', (e) => {
+    const value = search.value.toLowerCase();
+    const employees = document.querySelectorAll('.card');
+  
+    employees.forEach(employee => {
+      let name = employee.querySelector('.name');
+      if (name.textContent.toLowerCase().includes(value)) {
+        employee.style.display = '';
+      }
+      else {
+        employee.style.display = 'none';
+      }
+    })
+  })
 
 
 
-
-
+ 
